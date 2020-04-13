@@ -21,7 +21,7 @@
     "express": "4.x",
     "mongoose": "^5.9.5",
     "open-graph": "^0.2.4",
-    "short-uuid": "^3.1.1",
+    "short-uuid": "^3.1.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
