@@ -5,6 +5,13 @@ const mongoose = require('mongoose');
 const short = require('short-uuid');
 const translator = short();
 const imageOptimizer = require('./scripts/image-optimizer');
+const kv = require('./models/keyvalue');
+
+require('leaked-handles').set({
+  fullStack: true, // use full stack traces
+  timeout: 30000, // run every 30 seconds instead of 5.
+  debugSockets: true, // pretty print tcp thrown exceptions.
+});
 
 /**
  * Checks if shortlink and aws links have been used then generates a new pair
@@ -27,19 +34,13 @@ function checkModel(fileName) {
 }
 
 // connects to mongodb
-const rand = mongoose.createConnection('mongodb://localhost/newdb', {
+const connection = mongoose.createConnection('mongodb://localhost/newdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// creates schema that relates the aws link to the shortlink
-const kv = new mongoose.Schema({
-  awslink: String,
-  llink: String,
-});
-
 // sets model to previously defined Schema
-const model = rand.model('pair', kv);
+const model = connection.model('pair', kv);
 
 // Initiating app, port, and environment
 const app = express();
@@ -83,7 +84,6 @@ app.get('/sign-s3', (req, res) => {
   };
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
-      console.log(err);
       return res.end();
     }
     //
@@ -126,3 +126,11 @@ app.get('/*', (req, res)=> {
 });
 
 module.exports = app;
+
+
+process.on('SIGINT' || 'SIGTERM', function() {
+  mongoose.connection.close(function() {
+    console.log("Mongoose default connection is disconnected due to application termination");
+    process.exit(0);
+  });
+});
