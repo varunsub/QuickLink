@@ -1,4 +1,4 @@
-# heroku-image-uploader
+# QuickLink Image Uploader
 
 This app is an imgur clone. You can upload an image and will recieve a shortlink that can easily be shared. This link has embedded meta tags for Twitter card and OpenGraphProtocol to enhance sharing.
 
