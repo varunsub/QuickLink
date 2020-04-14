@@ -1,6 +1,12 @@
 const app = require('../app.js');
 const supertest = require('supertest');
 const request = supertest(app);
+
+/**
+ * Tests the /getfile endpoint that validates file
+ * and creates the unique IDs for images
+ */
+
 describe('GET getfile', () => {
   test('Sends get request to the /getfile endpoint', async (done) => {
     // Sends GET Request to /test endpoint

@@ -4,14 +4,17 @@ const aws = require('aws-sdk');
 const mongoose = require('mongoose');
 const short = require('short-uuid');
 const translator = short();
-const imageOptimizer = require('./scripts/image-optimizer');
+const imageOptimizer = require('./src/image-optimizer');
 const kv = require('./models/keyvalue');
 
+// Code for detecting program leaks
+/*
 require('leaked-handles').set({
   fullStack: true, // use full stack traces
   timeout: 30000, // run every 30 seconds instead of 5.
   debugSockets: true, // pretty print tcp thrown exceptions.
 });
+*/
 
 /**
  * Checks if shortlink and aws links have been used then generates a new pair

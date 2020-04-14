@@ -2,6 +2,10 @@ const app = require('../app.js');
 const supertest = require('supertest');
 const request = supertest(app);
 
+/**
+ * Tests S3 endpoint is working
+ */
+
 describe('GET sign-s3', () => {
   test('Gets the test endpoint sign-s3', async (done) => {
     // Sends GET Request to /test endpoint

@@ -2,6 +2,10 @@ const app = require('../app.js');
 const supertest = require('supertest');
 const request = supertest(app);
 
+/**
+ * Tests the /a/ endpoint that requests an image
+ */
+
 describe('GET getfile', () => {
   test('Gets the test endpoint', async (done) => {
     // Sends GET Request to /test endpoint
